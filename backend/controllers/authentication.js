@@ -4,6 +4,16 @@ const bcrypt = require('bcrypt')
 
 const { User } = db
 
+router.post('/super-important-route', async (req, res) => {
+  if(req.session.userId) {
+    console.log('Do the really super important thing!')
+    res.send('Done')
+  } else {
+    console.log('You are not authorized to do the super important thing')
+    res.send('Denied')
+  }
+})
+
 router.post('/', async (req, res) => {
   let user = await User.findOne({
     where: { email: req.body.email }
