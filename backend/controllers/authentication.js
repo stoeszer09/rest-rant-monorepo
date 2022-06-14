@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const db = require("../models")
 const bcrypt = require('bcrypt')
+const jwt = require('jwt')
 
 const { User } = db
 
@@ -14,7 +15,8 @@ router.post('/', async (req, res) => {
       message: 'Could not find a user with the provided username and password'
     })
   } else {
-    res.status(200).json({ user })
+    const result = await jwt.encode(process.env.JWT_SECRET, { id: user.userId})
+    res.status(200).json({ user: user, token: result.value })
   }
 })
 
