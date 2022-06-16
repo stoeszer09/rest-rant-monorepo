@@ -29,6 +29,15 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.post('/logout', async (req, res) => {
+  if(req.currentUser) {
+    req.session.userId = null
+    res.json({})
+  } else {
+    res.json({message: 'You need to be logged in before you can log out.'})
+  }
+})
+
 router.get('/profile', async (req, res) => {
   //console.log("current user: ", req.currentUser)
   if (!req.currentUser) {
