@@ -18,7 +18,6 @@ function LogOut() {
     const data = await response.json()
     setCurrentUser(data.user)
     history.push('/')
-
 }
 
   return (
